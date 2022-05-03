@@ -1,4 +1,4 @@
-import java.util.*;
+import java.util.Random;
 
 public class SecretNumber {
     private int[] number;
@@ -9,47 +9,39 @@ public class SecretNumber {
     }
 
     public int[] checkAnswer(int answer) {
+        int[] numberInts = number.clone();
         int[] answerInts = getIntArr(answer);
-        int b = getBulls(answerInts);
-        return new int[]{getCows(answerInts) - b, b};
-    }
-
-    private int getBulls(int[] answer) {
-        int c = 0;
-        int bulls = 0;
-        do {
-            if (number[c] == answer[c])
-                bulls++;
-            c++;
-        } while (c < number.length);
-        return bulls;
-    }
-
-    private int getCows(int[] answer) {
         int cows = 0;
-        Map<Integer, Integer> map = new HashMap<>();
-        for (int i : number){
-            if (map.containsKey(i)) {
-                map.replace(i, map.get(i) + 1);
-            } else {
-                map.put(i, 1);
+        int bulls = 0;
+
+        for (int i = 0; i < numberInts.length; i++) {
+            if (numberInts[i] == answerInts[i]) {
+                bulls++;
+                numberInts[i] = -1;
+                answerInts[i] = -2;
             }
         }
-        for (int i : answer){
-            if(map.containsKey(i)){
-                cows = cows + 1;
-                map.replace(i, map.get(i) - 1);
+
+        for (int i = 0; i < numberInts.length; i++) {
+            for (int j = 0; j < answerInts.length; j++) {
+                if (numberInts[i] == answerInts[j]) {
+                    cows++;
+                    numberInts[i] = -1;
+                    answerInts[j] = -2;
+                    break;
+                }
             }
         }
-        return cows;
+
+        return new int[]{cows, bulls};
     }
 
-    private int[] getIntArr(int number){
+    private int[] getIntArr(int number) {
         return new int[]{
                 number / 1000,
                 (number % 1000) / 100,
                 ((number % 1000) % 100) / 10,
-                ((number%1000)%100)%10};
+                ((number % 1000) % 100) % 10};
     }
 
     public int getAnswer() {

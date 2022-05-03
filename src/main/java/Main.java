@@ -31,7 +31,7 @@ public class Main {
                         try {
                             int[] asnwer = secretNumber.checkAnswer(Integer.parseInt(command));
                             if (asnwer[1] == 4)
-                                System.out.println("Угадал!\n");
+                                System.out.println("Угадал! Вводи start или exit\n");
                             else
                                 System.out.printf("Не угадал! Коровы %d, быки %d\n", asnwer[0], asnwer[1]);
                             if(DEBUG)

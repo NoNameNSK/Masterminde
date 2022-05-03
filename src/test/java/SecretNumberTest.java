@@ -54,6 +54,17 @@ public class SecretNumberTest {
         Assert.assertEquals(answer[1], 4);
     }
 
+    public void checkAnswerTest(){
+        secretNumber.setNumber(9789);
+        answer = secretNumber.checkAnswer(8899);
+        Assert.assertEquals(answer[0], 2, "Не верное кол-во коров");
+        Assert.assertEquals(answer[1], 1, "Не верное кол-во быков");
+        secretNumber.setNumber(2235);
+        answer = secretNumber.checkAnswer(2231);
+        Assert.assertEquals(answer[0], 0, "Не верное кол-во коров");
+        Assert.assertEquals(answer[1], 3, "Не верное кол-во быков");
+    }
+
     public void getAnswerTest(){
         secretNumber.setNumber(1111);
         Assert.assertEquals(secretNumber.getAnswer(), 1111);
